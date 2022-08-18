@@ -1,0 +1,149 @@
+install.packages("tinytex")
+
+---
+title: "QMM1002 Case Study  1 [20%]"
+author:
+- Rashmi Jaiswal
+- A00254769
+date: 'Due: February 22, 2022 at 11:59PM'
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+extra_dependencies: xcolor
+---
+
+**<span style="color: #8F2050;">This is a template to guide your creation of a RMarkdown file. You must erase all question references and explanations related to using RMarkdown.</span>**
+
+## Introduction
+
+In QMM1001 we collected personalized data to analyze. We will continue this analysis in QMM1002. Using RMarkdown, you can show your code and output from R directly in your report. 
+
+In the introduction section, you must describe the variables you collected. You can include a list of your variables in an RMarkdown table.
+I have collected data for data for Date, Number of hours on Zoom, Hours spend studying, Hours spent sleeping, Cups to tea, Watched news and The 3 personalized variables of my choice are Lunch Meal, Spice Level of the Lunch Mean, and Number of Video Calls. I choose these as I wanted to understand the dishes I make and how much spice level I make a particular dish and measure the number of video calls I make every day
+
+Variable | Type
+------------- | -------------
+Date | Identifier
+Zoom  | Quantitative
+Study  | Quantitative
+Sleep | Quantitative
+Tea | Quantitative
+News | Categorical
+Lunch Meal Homemade  | Categorical
+Spice Level of the Lunch.Meal  | Categorical
+Number of video Calls  | Quantitative
+Term (S22 or F22) | Categorical
+
+
+
+The variables that will be analyzed are hours spent studying, hours sleeping, and Number of video Calls made in a day
+
+You must also include calculations of summary statistics. This is how you run code in RMarkdown. Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the summary statistics, only the output is shown.
+
+**Summary Statistics**
+
+```{r echo=FALSE}
+rashmi<-read.csv(file="Personalized Data Rashmi Jaiswal.csv", header=TRUE)
+rashmi.3vars<-subset(rashmi, select=c("Number.of.video.Calls", "Study", "Sleep"))
+summary(rashmi.3vars)
+```
+
+Equations can be written easily in RMarkdown - for example if you wanted to show the calculation for the mean it is $\bar y = \frac{\Sigma y}{n}$.
+
+You must also check the four conditions required to use the t-distribution. To do this, you will need to create plots as below. Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Conditions and Assuptions for T-test
+
+### Study
+#### Condition1 : Independent Assumption: The data for study is independent of other varia
+
+#### Condition2 : Randomization Assumption: The data is not random. It is complete data for assumption
+#### Condition3 : 10% condition: The data is not large and is data is related to only me
+
+#### Condition4 : Nearly Normal Condition: The data for study is not nearly normally distributed. 
+```{r echo=FALSE}
+#Show output only
+hist(rashmi$Study, xlab="Study", main="Study Hours Each Day")
+boxplot(rashmi$Study, ylab="Study", main="Study Hours Each Day")
+```
+
+### Sleep
+#### Condition1 : Independent Assumption: The data for Sleep is independent.
+
+#### Condition2 : Randomization Assumption: The data is not random. It is complete data for assumption
+#### Condition3 : 10% condition: The data is not large and is data is related to only me
+
+#### Condition4 : Nearly Normal Condition: The data for Sleep is nearly normally distributed and right skewed  
+
+```{r echo=FALSE}
+#Show output only
+hist(rashmi$Sleep, xlab="Sleep", main="Sleep Hours Each Day")
+boxplot(rashmi$Sleep, ylab="Sleep", main="Sleep Hours Each Day")
+```
+### Number of video call per day
+#### Condition1 : Independent Assumption: The data for Number of video call per day is independent of other variables 
+#### Condition2 : Randomization Assumption: The data is not random. It is complete data for assumption
+#### Condition3 : 10% condition: The data is not large and is data is related to only me
+
+#### Condition4 : Nearly Normal Condition: The data for Sleep is not nearly normally distributed but left skewed
+```{r echo=FALSE}
+#Show output only
+hist(rashmi$Number.of.video.Calls, xlab="Number of video call per day", main="Sleep Hours Each Day")
+boxplot(rashmi$Number.of.video.Calls, ylab="Number of video call per day", main="Sleep Hours Each Day")
+```
+
+Your must check all four conditions for each variable. If a condition is not met, you must comment on how the data collection methods could be changed to ensure that the conditions hold.
+
+
+## Data Analysis
+Don't forget you must include more than 5 examples of your daily activities that help to explain the results of your analysis for full marks in this section!
+
+### Part 1: Confidence Intervals
+
+Place your analysis here.
+
+```{r include=FALSE}
+#Hide all output but extract the confidence interval from this in the interpretation below
+j.conf<-t.test(jenna$Study, conf.level = 0.95)
+```
+
+The 95% confidence interval is between `r j.conf$conf.int` hours.
+
+### Part 2: One-Sample Hypothesis Tests
+
+Place your analysis here.
+
+You can also easily write hypotheses in R. For example:
+
+$H_0: \mu = 0$
+
+$H_A: \mu \neq 0$
+
+```{r include=FALSE}
+#Hide all output but extract the confidence interval from this in the interpreration below
+j.test<-t.test(jenna$Study, alternative="greater", mu = 3.13)
+```
+
+The p-value from performing the test at $\alpha = 0.05$ is `r j.test$p.value`.
+
+### Part 3: Two-Sample Hypothesis Tests
+
+Place your analysis here. The first step is to make subsets. We started the process during our live class.
+
+```{r include=FALSE}
+#create subsets by term
+jFall<-subset(jenna, Term=="F21", select="Study")
+jWinter<-subset(jenna, Term=="W22", select="Study")
+
+#part 3.2 - create a random sample of 10 days from each subset
+jFall3.2<-sample(jFall$Study, 10)
+jWinter3.2<-sample(jWinter$Study, 1)
+
+#part 3.3 - select the first 10 days from each subset
+jFall3.3<-jFall[1:10,1]
+jWinter3.3<-jWinter[1:10,1]
+```
+
+## Conclusion
+Summarize all the questions investigated and your main findings about the three quantitative variables investigated. 
