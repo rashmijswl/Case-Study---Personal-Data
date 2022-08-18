@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 install.packages("tinytex")
 
 ---
@@ -100,15 +105,35 @@ Your must check all four conditions for each variable. If a condition is not met
 Don't forget you must include more than 5 examples of your daily activities that help to explain the results of your analysis for full marks in this section!
 
 ### Part 1: Confidence Intervals
-
+#### Study
 Place your analysis here.
 
 ```{r include=FALSE}
 #Hide all output but extract the confidence interval from this in the interpretation below
-j.conf<-t.test(jenna$Study, conf.level = 0.95)
+study.conf<-t.test(rashmi$Study, conf.level = 0.95)
 ```
 
-The 95% confidence interval is between `r j.conf$conf.int` hours.
+The 95% confidence interval is between `r study.conf$conf.int` hours.
+
+#### Sleep
+Place your analysis here.
+
+```{r include=FALSE}
+#Hide all output but extract the confidence interval from this in the interpretation below
+sleep.conf<-t.test(rashmi$Sleep, conf.level = 0.95)
+```
+
+The 95% confidence interval is between `r sleep.conf$conf.int` hours.
+
+#### Video Calls
+Place your analysis here.
+
+```{r include=FALSE}
+#Hide all output but extract the confidence interval from this in the interpretation below
+calls.conf<-t.test(rashmi$Number.of.video.Calls, conf.level = 0.95)
+```
+
+The 95% confidence interval is between `r calls.conf$conf.int` hours.
 
 ### Part 2: One-Sample Hypothesis Tests
 
